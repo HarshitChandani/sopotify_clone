@@ -1,0 +1,51 @@
+<div class="fixed-bottom">
+   <div class="container-fluid music-player">
+      <div class="d-flex flex-column">
+         <div class="row">
+            <div class="col-3 mt-2 p-2 ">
+               <div class="container">
+                  <div class="song-detail">
+                     <div class="d-flex">
+                        <div class="song-poster" style="margin-left:.6rem;">
+                           <img src="" width="65px" id="song-poster"/>
+                        </div>
+                        <div class="song-title-artist mx-3">
+                           <div class="title" id="title"></div>
+                           <div class="artist" id="artist"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="col-6 text-center px-0">
+               <div class="controller my-2 py-2">
+                  <span class="play-prev-song-btn">
+                     <i class="fa-solid fa-backward-step fa-xl mx-2" onclick="play_previous_song()"></i>
+                  </span>
+                  <span class="play-btn text-center">
+                     <button class="btn master-btn text-center mx-3" id="master-btn" aria-label="play">
+                        <i class="fa-solid fa-play fa-lg " id="master-play-btn"  style="color:black"></i>
+                        <i class="fa-solid fa-pause fa-lg" id="master-pause-btn" style="color:black;display:none"></i>
+                     </button>
+                  </span>
+                  <span class="play-next-song-btn">
+                     <i class="fa-solid fa-forward-step fa-xl mx-2" onclick="play_next_song()"></i>
+                  </span>
+               </div>
+            </div>
+            
+            <div class="col-3 px-0">
+               <div class="container my-2 py-2">
+                  <span class="volume-bar">
+                     <i class="fa-solid fa-volume-high volume" style="cursor:pointer"></i>
+                     <i class="fa-solid fa-volume-low" style="display:none"></i>
+                     <i class="fa-solid fa-volume-xmark" style="display:none"></i>
+                     <input type="range" class="form-range" min="0" max="100" step="20" id="volume-progress-bar" value="100">  
+                  </span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

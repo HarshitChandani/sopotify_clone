@@ -1,0 +1,43 @@
+<%- include('layout/header') %>
+   <div class="wrapper" >
+      <div class="playlist" style="overflow-y:scroll;height:100vh">
+         <div class="container">
+            <div class="row">
+               <div class="category-playlist-summary my-3">
+                  <h3>
+                     <%= playlist_title %>
+                  </h3>
+               </div>
+               <div class="category-playlist-tracks-list">
+                  <table class="table table-light table-condensed">
+                     <tbody class="category-playlist-track">
+                        <% playlist_data.forEach( (data) =>{ %>
+                           <tr>
+                              <td class="col-md-3">
+                                 <a href="/playlist-tracks?title=<%= data.name %>&q=<%= data.id %>">
+                                    <img src="<%= data.images[0].url%>"/>
+                                 </a>
+                              </td>
+                              <td class="col-md-6 ">
+                                 <div class="playlist-title">
+                                    <%= data.name %>
+                                 </div>
+                                 <div class="text-muted my-2">
+                                    <%= data.description %>
+                                 </div>
+                                 <div class="text-muted my-1" style="font-size:small">
+                                    Total Tracks: <%= data.tracks.total %>
+                                 </div>
+                              </td>
+                              <td></td>
+                              <td></td>
+                           </tr>
+                        <% }) %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+<%- include('layout/footer') %>

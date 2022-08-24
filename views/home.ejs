@@ -1,0 +1,24 @@
+<%- include('layout/header') %>
+    <div class="wrapper py-1 mx-4">
+        <h4 style="font-weight:600">Gets from Catalog's</h4>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <% category_data.forEach( (data) => { %>
+                    <div class="swiper-slide">
+                        <div class="category-card">
+                            <a href="/category-playlist?title=<%= data.name%>&q=<%= data.id %>" style="text-decoration: none;">
+                                <img class="card-img-top" src='<%= data.icons[0].url %>' alt="Card image cap">
+                                <div class="card-body text-center my-2">
+                                    <p class="card-text category-title"><%= data.name %></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+<%- include('layout/footer') %>
