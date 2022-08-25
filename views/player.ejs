@@ -7,7 +7,7 @@
                   <div class="song-detail">
                      <div class="d-flex">
                         <div class="song-poster" style="margin-left:.6rem;">
-                           <img src="" width="65px" id="song-poster"/>
+                           <img src="" width="80" id="song-poster"/>
                         </div>
                         <div class="song-title-artist mx-3">
                            <div class="title" id="title"></div>
@@ -24,14 +24,27 @@
                      <i class="fa-solid fa-backward-step fa-xl mx-2" onclick="play_previous_song()"></i>
                   </span>
                   <span class="play-btn text-center">
-                     <button class="btn master-btn text-center mx-3" id="master-btn" aria-label="play">
-                        <i class="fa-solid fa-play fa-lg " id="master-play-btn"  style="color:black"></i>
-                        <i class="fa-solid fa-pause fa-lg" id="master-pause-btn" style="color:black;display:none"></i>
+                     <button class="btn master-btn  mx-2" id="master-btn" aria-label="play">
+                        <i class="fa-solid fa-play" id="master-play-btn"></i>
+                        <i class="fa-solid fa-pause" id="master-pause-btn" style="display:none"></i>
                      </button>
                   </span>
                   <span class="play-next-song-btn">
                      <i class="fa-solid fa-forward-step fa-xl mx-2" onclick="play_next_song()"></i>
                   </span>
+               </div>
+               <div style="text-align: -webkit-center;">
+                  <div class="playback-bar">
+                     <div class="track-playback-start-time" id="track-playback-start-time">
+                        00:00
+                     </div>
+                     <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width:0%" aria-valuemin="0" aria-valuemax="100" id="track-playback-progress-bar"></div>
+                     </div>
+                     <div class="track-playback-end-time" id="track-playback-end-time">
+                        00:00
+                     </div>
+                  </div>
                </div>
             </div>
             

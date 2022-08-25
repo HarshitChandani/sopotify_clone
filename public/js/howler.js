@@ -1,4 +1,3 @@
-
 let  sound_id=null,
      id=null,
      howl_instance = null,
@@ -34,7 +33,6 @@ $(document).ready( () => {
 })
 
 const control_audio = (track) => {
-   
    let title = track.name;
    let poster = track.album.images[2].url
    id = track.id;
@@ -59,12 +57,12 @@ const control_audio = (track) => {
       onplay: function(){
          element.style.display="none"
          pause_element.style.display = "block"
-         master_element.ariaLabel = "pause"
+         master_element.ariaLabel = "pause" 
       },
       onpause: function(){
          element.style.display = "block"
          pause_element.style.display = "none"
-         master_element.ariaLabel = "play"
+         master_element.ariaLabel = "play"  
       },
       onend: function(){
          pause_element.style.display = "none"   
@@ -75,7 +73,7 @@ const control_audio = (track) => {
          element.style.display = "block"
          pause_element.style.display = "none"
          master_element.ariaLabel = "play"
-      },
+      }
    })
 
    switch(howl_instance.state()){
@@ -95,13 +93,25 @@ const control_audio = (track) => {
    }
 
    howl_instance.on("play",() => {
-      console.log(howl_instance.state())
       document.getElementById("song-poster").setAttribute("src",poster)
       document.getElementById("title").innerHTML = title
       document.getElementById("artist").innerHTML = artist
+      const moment_howl_duration = new moment(howl_instance.duration(),"seconds")
+      document.getElementById("track-playback-end-time").innerHTML = `${moment_howl_duration.minutes()}:${moment_howl_duration.seconds()}`
+      track_audio_progress()
    })
- }
 
+   function track_audio_progress(){
+      var seek = howl_instance.seek();
+      document.getElementById("track-playback-progress-bar").style.width = (((seek / howl_instance.duration()) * 100)) + '%';
+      seek_duration = new moment.duration(seek,"seconds")
+      document.getElementById("track-playback-start-time").innerHTML = `${seek_duration.minutes()}:${seek_duration.seconds()}`
+      if (howl_instance.playing()){
+         requestAnimationFrame( () => { track_audio_progress()})
+      }
+   }
+
+}
 const play_previous_song = () => {
    if (id == null){
       alert("No song is selected !")
@@ -133,7 +143,7 @@ const play_next_song = () => {
       }
    }
 }
- 
+
 const play_track = async (clicked_track_id) => {
    
    // Fetch the track details 
