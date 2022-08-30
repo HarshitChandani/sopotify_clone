@@ -99,8 +99,6 @@ ol, ul{
 .master-btn:hover{
    background-color:white;
    text-decoration: none;
-   height:48px;
-   width:48px;
    color:black
 }
 
@@ -219,4 +217,9 @@ input#volume-progress-bar{
 }
 .progress-bar{
    background-color:var(--primary-color-1);
+}
+
+.like-playlist-btn{
+   color:black;
+   cursor:pointer;
 }

@@ -1,24 +1,5 @@
 const { fetch } = require("cross-fetch")
 
-const getAccessToken = async () => {
-    try {
-        const result = await fetch('https://accounts.spotify.com/api/token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + btoa(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET)
-            },
-            body: 'grant_type=client_credentials'
-        })
-
-        const data = await result.json()
-        return data.access_token
-
-    } catch (error) {
-        console.error("Error",error)
-    }
-}
-
 const getCategories = async (access_token) => {
     try{
         const result = await fetch('https://api.spotify.com/v1/browse/categories',{
@@ -47,8 +28,8 @@ const getCategoryPlaylist = async (access_token,category_id) => {
             } 
         })
         if (result.status == 200){
-            console.log(result.statusText)
             const data = await result.json()
+            // console.log(data)
             return data
         }
         else{
@@ -61,6 +42,7 @@ const getCategoryPlaylist = async (access_token,category_id) => {
 
 const getTracks = async (access_token , playlist_id) => {
     try{
+        
         let url = `https://api.spotify.com/v1/playlists/${playlist_id}`
         
         const result = await fetch(url,{
@@ -72,6 +54,7 @@ const getTracks = async (access_token , playlist_id) => {
         });
         if (result.status == 200){
             const data = await result.json()
+            // console.log(data)
             return data;
         }
         else{
@@ -90,18 +73,58 @@ const getTrackById = async (request,response) => {
     const result = await fetch(spotify_url,{
         method:"GET",
         headers:{
-            'Authorization': 'Bearer ' + request.cookies.spoitfyToken,
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
             'Content-Type': 'application/json'
         }
     })
     const data = await result.json()
+    // console.log(data)
     return response.send(data)
 }
 
+const getMultipleTracksById = async (request,response) => {
+    const track_ids_str = request.query.ids
+    const spotify_url = `https://api.spotify.com/v1/tracks?ids=${track_ids_str}`
+    const result = await fetch(spotify_url,{
+        method:"GET",
+        headers:{
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
+            'Content-Type': 'application/json'
+        }
+    })
+    const data = await result.json()
+    return response.status(200).send(data)
+}
+
+const getTracksByPlaylistId = async (request,response) => {
+    const playlist_id = request.query.playlist_id;
+    // let field_options = request.query.field 
+    let spotify_url = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`
+    
+    // if (field_options != null){
+    //     spotify_url = `${spotify_url}?fields=items(track(album(${field_options})))`  
+    // }
+    await fetch(spotify_url,{
+        method:"GET",
+        headers:{
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
+            'Content-Type': 'application/json'
+        }
+    }).then( async (data) => {
+        if (data.status == 200 ){
+            data = await data.json();
+            return response.status(200).send(data)
+        }else{
+            return response.status(401).send({})
+        }
+    })
+}
+
 module.exports = {
-    getSpotifyToken: getAccessToken,
     getCategories:getCategories,
     getCategoryPlaylist:getCategoryPlaylist,
     getTracks:getTracks,
     getTrackById: getTrackById,
+    getMultipleTracksById:getMultipleTracksById,
+    getTracksByPlaylistId:getTracksByPlaylistId
 }

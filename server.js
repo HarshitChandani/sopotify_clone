@@ -4,11 +4,12 @@ const express = require("express")
 const path = require("path")
 const cookie_parser = require("cookie-parser")
 
+// Routing
 const route_category = require("./routes/category")
 const route_track = require("./routes/track")
-const {connect} =  require("./api/database")
-const {getSpotifyToken} = require("./api/spoitfy_api")
+const route_authorize = require("./routes/authorize")
 
+const {connect} =  require("./api/database")
 
 const app =  express()
 const PORT = process.env.PORT || 3000
@@ -20,19 +21,8 @@ app.use(express.static(path.join(__dirname,"public")))
 
 connect()
 
-app.use(async (request,response,next) => {
-    if (!request.cookies.spoitfyToken){
-        await getSpotifyToken().then( (token) => {
-            if (token){
-                response.cookie('spoitfyToken',token,{maxAge: 60*60*1000 })
-                response.end()
-            }
-        })
-    }
-    next()
-});
+app.use("/authorize",route_authorize)
 
-// app.get("/",CategoryController.getAllCategories)
 app.use("/",route_category)
 app.use("/track",route_track)
 
