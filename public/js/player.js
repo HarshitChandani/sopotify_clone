@@ -72,8 +72,6 @@ const control_audio = (track,single,playlist) => {
          // If song is currently playing.
          if (master_element.ariaLabel == "pause"){
             master_element.ariaLabel = "play"
-            document.getElementById(id).style.display="block"
-            document.getElementById("track_equalizer_gif_"+id).style.display="none"
             howl_instance.stop()
          }
    
@@ -85,8 +83,6 @@ const control_audio = (track,single,playlist) => {
                element.style.display="none"
                pause_element.style.display = "block"
                master_element.ariaLabel = "pause" 
-               document.getElementById(id).style.display="none"
-               document.getElementById("track_equalizer_gif_"+id).style.display="block"
             },
             onpause: function(){
                element.style.display = "block"
