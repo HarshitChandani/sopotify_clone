@@ -5,7 +5,7 @@ const {
    getTrackById,
    getMultipleTracksById,
    getTracksByPlaylistId
-} = require("../api/spoitfy_api")
+} = require("../utils/spoitfy_api")
 
 
 Router.get("/getTrack",getTrackById)

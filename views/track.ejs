@@ -28,13 +28,17 @@
                </div>
                <div class="extra-features mt-3 d-flex" style="align-items:center">
                   <div class="play_all_tracks_btn mx-2">
-                     <button type="btn" class="master-btn text-center mx-3 px-2 rounded" style="background-color:rgb(31 223 100);width:50px;height:50px" onclick="play_all_playlist_track()">
-                        <i class="fa-solid fa-play fa-xl"></i>
+                     <button type="btn" class="playlist-master-btn text-center mx-3 px-2 rounded" id="play_playlist_<%= playlist_id %>" onclick="play_all_playlist_track(this.id)">
+                        <i class="fa-solid fa-play fa-xl" role="play"></i>
+                        <i class="fa-solid fa-pause fa-xl" role="pause" style="display:none"></i>
                      </button>
                   </div>
-                  <div class="like-playlist-btn" id="<%= playlist_id%>">
-                     <i class="fa-solid fa-heart fa-2xl"></i>
-                  </div>
+                  <button type="button" role="switch" aria-checked="<% if(doesUserLikedThisPlaylist){%>true<%}else{%>false<%}%>" class="Fm7C3gdh5Lsc9qSXrQwO" aria-expanded="<% if(doesUserLikedThisPlaylist){%>true<%}else{%>false<%}%>" 
+                  id="like_unlike_playlist_<%= playlist_id%>" onclick="like_unlike_playlist(`<%= playlist_id%>`)" style="color: <% if(doesUserLikedThisPlaylist){ %> rgb(31 223 100) <% }else{ %> black <% } %>">
+                     <svg role="img" height="45" width="35" viewBox="0 0 24 24" class="Svg-ytk21e-0 jAKAlG">
+                        <path d="M8.667 1.912a6.257 6.257 0 00-7.462 7.677c.24.906.683 1.747 1.295 2.457l7.955 9.482a2.015 2.015 0 003.09 0l7.956-9.482a6.188 6.188 0 001.382-5.234l-.49.097.49-.099a6.303 6.303 0 00-5.162-4.98h-.002a6.24 6.24 0 00-5.295 1.65.623.623 0 01-.848 0 6.257 6.257 0 00-2.91-1.568z" style="fill:currentColor"></path>
+                     </svg>
+                  </button>
                </div>
                <div class="playlist-tracks my-3">
                   <table class="table table-borderless .table-responsive table-fixed">

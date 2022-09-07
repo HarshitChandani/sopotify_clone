@@ -14,7 +14,7 @@
                         <% playlist_data.forEach( (data) =>{ %>
                            <tr>
                               <td class="col-md-3">
-                                 <a href="/playlist-tracks?title=<%= data.name %>&q=<%= data.id %>">
+                                 <a href="/playlist-tracks?q=<%= data.id %>">
                                     <img src="<%= data.images[0].url%>"/>
                                  </a>
                               </td>

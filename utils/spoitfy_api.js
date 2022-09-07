@@ -1,5 +1,7 @@
 const { fetch } = require("cross-fetch")
 
+// Back End API : API's which are used by Controllers/Middlewares.
+
 const getCategories = async (access_token) => {
     try{
         const result = await fetch('https://api.spotify.com/v1/browse/categories',{
@@ -8,8 +10,7 @@ const getCategories = async (access_token) => {
                 'Authorization' : 'Bearer ' + access_token
             }
         })
-        const data = await result.json()
-        return data
+        return result
     }
     catch(error){
         console.error("Error",error)
@@ -27,14 +28,12 @@ const getCategoryPlaylist = async (access_token,category_id) => {
                 'Content-Type': 'application/json'
             } 
         })
-        if (result.status == 200){
-            const data = await result.json()
-            // console.log(data)
-            return data
-        }
-        else{
-            throw Error(result.statusText)
-        }
+        // if (result.status == 200){
+        //     const data = await result.json()
+        //     // console.log(data)
+        //     return data
+        // }
+        return result
     }catch(error){
         console.error(error)
     }
@@ -52,19 +51,13 @@ const getTracks = async (access_token , playlist_id) => {
                 'Content-Type': 'application/json'
             }
         });
-        if (result.status == 200){
-            const data = await result.json()
-            // console.log(data)
-            return data;
-        }
-        else{
-            throw Error(result.statusText)
-        }
+        return result
     }catch(error){
         console.log(error)
     }
 }
 
+// Front End API's .
 
 const getTrackById = async (request,response) => {
    
@@ -73,7 +66,7 @@ const getTrackById = async (request,response) => {
     const result = await fetch(spotify_url,{
         method:"GET",
         headers:{
-            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken,
             'Content-Type': 'application/json'
         }
     })
@@ -88,7 +81,7 @@ const getMultipleTracksById = async (request,response) => {
     const result = await fetch(spotify_url,{
         method:"GET",
         headers:{
-            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken,
             'Content-Type': 'application/json'
         }
     })
@@ -101,13 +94,10 @@ const getTracksByPlaylistId = async (request,response) => {
     // let field_options = request.query.field 
     let spotify_url = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`
     
-    // if (field_options != null){
-    //     spotify_url = `${spotify_url}?fields=items(track(album(${field_options})))`  
-    // }
     await fetch(spotify_url,{
         method:"GET",
         headers:{
-            'Authorization': 'Bearer ' + request.cookies.spoitfyToken.access_token,
+            'Authorization': 'Bearer ' + request.cookies.spoitfyToken,
             'Content-Type': 'application/json'
         }
     }).then( async (data) => {

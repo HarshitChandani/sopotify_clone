@@ -20,7 +20,6 @@ const spotifySchema = new mongoose.Schema({
    },
    type:String,
    expires_in_seconds:Number,
-   expires: Number
 })
 
 module.exports = mongoose.model("spotify",spotifySchema)

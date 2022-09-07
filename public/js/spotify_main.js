@@ -93,11 +93,15 @@ const control_audio = (track,single,playlist) => {
                pause_element.style.display = "none"   
                element.style.display = "block"
                master_element.ariaLabel = "play"
+      
             },
             onstop:function(){
                element.style.display = "block"
                pause_element.style.display = "none"
                master_element.ariaLabel = "play"
+            },
+            onplayerror:function(){
+               alert("Error in playing the track. ")
             }
          })
    
@@ -203,7 +207,7 @@ const play_track = async (clicked_track_id) => {
    })
 }
 
-const play_all_playlist_track = async () => {
+const play_all_playlist_track = async (playlist_id) => {
    const total_tracks_ids = track_ids_array.length
    const queue = []
    let pointer,pointer1;
@@ -236,6 +240,8 @@ const play_all_playlist_track = async () => {
 
          }).then( (data) => {
             if (data.status == 200){
+               document.getElementById(playlist_id).querySelector('[role="play"]').style.display = 'none';
+               document.getElementById(playlist_id).querySelector('[role="pause"]').style.display = 'block';
                data.json().then( (data)=>{
                   i = 0
                   while (pointer != pointer1){
@@ -264,3 +270,39 @@ const play_all_playlist_track = async () => {
    //    second_last_track_id = track_ids_array[total_tracks_ids - 2 ]
    // }
 } 
+
+const like_unlike_playlist =async (playlist_spotify_id) => {
+
+   element = document.querySelector(`button[id=like_unlike_playlist_${playlist_spotify_id}]`)
+   
+   
+   svg_child = element.children[0]
+   const url = `playlist/like_playlist?id=${playlist_spotify_id}&event=${element.ariaExpanded}`
+   await fetch(url,{
+      method:"GET",
+      headers:{
+         'Content-Type': 'application/json'
+      }
+   }).then( async (data) => {
+      if(data.status == 200){
+         result = await data.json()
+         element.setAttribute("aria-checked",!result.event)
+         element.setAttribute("aria-expanded",!result.event)
+         if (!result.event){
+            // false: Like the playlist
+            element.setAttribute("aria-label","Removed from favorites")
+            element.style.color = "rgb(31 223 100)"
+         }else{
+            // true: Removed the playlist
+            element.setAttribute("aria-label","Save to favorite")
+            element.style.color = "black"
+         }
+         svg_child.style.fill ="currentColor"
+         alert(result.msg)
+      }else if(data.status == 401){
+         window.location = `/auth/login?continue=${window.location.href}`
+      }else{
+         alert("Something went wrong.")
+      }
+   })  
+}

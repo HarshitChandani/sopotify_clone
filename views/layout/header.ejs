@@ -24,6 +24,14 @@
                         <i class="fa-solid fa-heart"></i>
                         <a href="" style="text-decoration: none;color:white"><span>Favorite</span></a>
                       </li>
+                      <li class="py-2">
+                        <i class="fa-solid fa-user"></i>
+                        <% if (loggedInUser) { %>
+                          <a href="" style="text-decoration: none;color:white">Log-out</a>
+                        <% } else{ %>
+                          <a href="/auth/login" style="text-decoration: none;color:white"><span>Login</span></a>
+                      </li>
+                        <% } %>
                     </ul>
                   </div>
                 </div>

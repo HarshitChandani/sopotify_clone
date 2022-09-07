@@ -2,6 +2,7 @@
    --primary-color:white;
    --primary-color-1:black;
    --primary-color-2: #747474;
+   --site-color:rgb(35 179 87);
 }
 
 html,body{
@@ -40,7 +41,7 @@ ol, ul{
 }
 
 .spotify-menu{
-   color:var(--primary-color);
+   color:rgb(226 226 226);
    font-size:large;
    font-weight: 500;
 }
@@ -86,7 +87,7 @@ ol, ul{
    color:white;   
 }
 
-.master-btn{
+.master-btn,playlist-master-btn{
    width: 38px;
    height: 38px;
    background-color: white;
@@ -94,6 +95,11 @@ ol, ul{
    color:black;
    position: relative;
    padding: 0.2rem;
+}
+.playlist-master-btn{
+   background-color:rgb(31 223 100);
+   width:50px;
+   height:50px
 }
 
 .master-btn:hover{
@@ -222,4 +228,21 @@ input#volume-progress-bar{
 .like-playlist-btn{
    color:black;
    cursor:pointer;
+}
+
+.site-btn{
+   background-color: var(--site-color);
+   border: 1px solid var(--primary-color-1);
+   color: var(--primary-color-1);
+   font-weight: 600;
+}
+
+.Fm7C3gdh5Lsc9qSXrQwO {
+   background: rgb(0 0 0 / 0%);
+   border: 0;
+   color: rgb(255 255 255 / 70%);
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   padding: 0;
 }
