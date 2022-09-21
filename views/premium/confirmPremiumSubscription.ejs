@@ -1,0 +1,40 @@
+<html>
+   <head>
+      <%- include('../layout/cdn.ejs') %>
+   </head>
+   <div class="container d-flex my-2 flex-column flex-wrap" style="justify-content:center">
+      <div class="row">
+         <%  data.forEach((premium) => { %>
+            <div class="col-lg-3 col-md-4 my-2">
+               <div class="card text-center">
+                  <div class="brand d-flex text-light" style="background-color:black;align-items: center;">
+                     <div class="brand-logo">
+                        <img class="card-img-top p-3" src="/images/spotify-logo.png" alt="Card image cap" height="100">
+                     </div>
+                     <div class="brand-name fs-2 fw-normal" style="color:White;">
+                        <%= premium.p_type %>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <h5 class="card-title">Upgrade to Premium</h5>
+                     <p class="card-text"> Amount: Rs <%= premium.p_amt %></p>
+                     <div class="premium-benefits">
+                        <ul class="list-group list-group-flush">
+                           <% premium.benefits.forEach((benefits) => { %>
+                              <li class="list-group-item">
+                                 <%= benefits %>
+                              </li>
+                           <% })%>
+                        </ul>
+                     </div>
+                     <hr/>
+                     <a href="/premium/payment/<%= premium._id %>" role="button" class="btn btn-success">
+                        Process Payment
+                     </a>
+                  </div>
+               </div>
+            </div>
+         <% }) %>
+      </div>
+   </div> 
+</html>

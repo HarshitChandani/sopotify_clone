@@ -23,7 +23,13 @@ const user_schema = new mongoose.Schema({
    like_playlist: {
       type:Array,
       unique:true
+   },
+   premium: {
+      type: mongoose.Types.ObjectId,
+      required: false,
+      index:true
    }
+   // premium_id:mongoose.Types.ObjectId
 })
 
 module.exports = mongoose.model("user",user_schema)

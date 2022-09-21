@@ -13,14 +13,17 @@ const route_track = require("./routes/track")
 const route_authorize = require("./routes/authorize")
 const route_playlist = require("./routes/playlist")
 const route_authentication = require("./routes/authentication")
+const route_payment = require("./routes/payment")
 
 const {connect} =  require("./utils/database")
 
 const app =  express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 
 app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
+
+app.set('payment_status',false)
 
 app.use(cookie_parser())
 app.use(express_session({
@@ -47,10 +50,11 @@ app.use( (request,response,next) => {
     next()
 })
 
+
 app.use("/authorize",route_authorize)
 app.use( (request,response,next) => {
-    if (request.cookies.spoitfyToken == undefined) {
-        response.redirect(`/authorize?previous_redirect_uri=/`)
+    if (request.cookies.spoitfyToken == "undefined") {
+        response.redirect(`/authorize?previous_redirect_uri=${process.env.ROOT}`)
     }
     next()
 })
@@ -59,6 +63,7 @@ app.use("/",route_category)
 app.use("/auth",route_authentication)
 app.use("/track",route_track)
 app.use("/playlist",route_playlist)
+app.use("/premium",route_payment)
 
 connect()
 

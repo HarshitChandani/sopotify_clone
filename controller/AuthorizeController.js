@@ -86,6 +86,7 @@ function authorizeUser (request,response){
 async  function generateToken (request,response){
    const code = request.query.code
    const body_data = `grant_type=authorization_code&code=${code}&redirect_uri=http://localhost:3000/authorize/callback`
+
    await fetch('https://accounts.spotify.com/api/token', {
          method: 'POST',
          body: body_data,
@@ -99,7 +100,7 @@ async  function generateToken (request,response){
          // setCookie('spoitfyToken',d.access_token,d.expires_in * 1000 * 24,response)
          response.cookie("spoitfyToken",d.access_token,{maxAge: d.expires_in * 1000 * 24 })
          setCookie('spotify_refresh_token',d.refresh_token,d.expires_in * 1000 * 24,response)
-         response.redirect(previous_redirect)
+         // response.redirect(previous_redirect)
       }
       else{
          console.log(data.statusText)

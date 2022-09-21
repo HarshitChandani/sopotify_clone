@@ -155,6 +155,10 @@ input#volume-progress-bar{
    overflow:scroll;
 }
 
+.playlist-tracks-page::-webkit-scrollbar{
+   display:none
+}
+
 .poster-details> .poster-title{
    font-size: xx-large;
    text-shadow: -2px 3px 20px #bdbdbd;

@@ -1,0 +1,37 @@
+<html>
+   <head>
+      <%- include('../layout/cdn.ejs') %>
+      <style>
+         .confirmation_gif{
+            width: 12.5rem;
+            z-index:-1;
+
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container" style="font-family: cursive">
+         <div class="wrapper my-5">
+            <div class="premium-confirm d-flex row text-center" style="justify-content: center;">
+               <img src="/images/confirmation-gif.gif" class="img-responsive confirmation_gif">
+               <h5 class="p-2 text-black">You are now a premium user.</h5>
+            </div>
+            <div class="premium-details my-3">
+               <h6>
+                  Premium Name: Bronze
+               </h6>
+               <h6>
+                  Amount: Rs 10
+               </h6>
+               <h6>
+                  Activation Date: 17-09-2022
+                  Expiration Date: 18-09-2022
+               </h6>
+            </div>
+            <div class="activate-btn">
+               <a role="button" class="btn-outline-success btn">Click here to enjoy your premium.</a>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

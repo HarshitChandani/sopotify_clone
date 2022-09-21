@@ -67,7 +67,8 @@ const signup = async (request,response) => {
             number:number,
             password:hashed_password,
             token:token,
-            like_playlist:[{}]
+            like_playlist:[{}],
+            premium: null
          }).save((error,data) => {
             if (data){
                return response.status(200).send({
